@@ -1,5 +1,6 @@
 package edu.temple.activity4
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -20,30 +21,27 @@ class MainActivity : AppCompatActivity() {
 
         textSizeDisplay = findViewById(R.id. textSizeDisplayTextView)
 
-        //val textSizeViewHolder = TextSizeAdapter.TextSizeViewHolder(textSizeDisplay)
 
-        //val callback = {textSize: Float -> textSizeDisplay.textSize = textSize}
-
-        //val someFunction : (Int, Int) -> Unit = {x:Int, y:Int -> textSizeDisplay.text = (x+y).toString()}
-        //someFunction(4,6)
-        //ARandomClass().myLocalFunction("Kevin", 74, someFunction)
-
-        //textSizeSelector = findViewById(R.id.textSizeSelectorRecyclerView)
-
-        // Trying to create array of integers that are multiples of 5
-        // Verify correctness by examining array values.
         val textSizes = Array(20){(it + 1) * 5}
         Log.d("Array values", textSizes. contentToString())
 
+
         with(findViewById(R.id.textSizeSelectorRecyclerView) as RecyclerView){
+
+
+
+
             adapter = TextSizeAdapter(textSizes){
                 textSizeDisplay.textSize = it
+
+                intent = Intent (this@MainActivity, MainActivity2::class.java)
+
+                intent.putExtra("textSize",it)
+
+                startActivity(intent)
             }
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
-
-        //textSizeSelector.adapter = TextSizeAdapter(textSizes)
-        //textSizeSelector.layoutManager = LinearLayoutManager(this)
 
     }
 }
